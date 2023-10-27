@@ -24,7 +24,7 @@ Route::get('/products',  [ProductsController::class, 'products']);
 Route::get('/addproduct',  [ProductsController::class, 'addproduct']);
 
 Route::get('/addcategory',  [CategoryController::class, 'addcategory']);
-Route::get('/category',  [CategoryController::class, 'category']);
+Route::get('/categories',  [CategoryController::class, 'category']);
 
 Route::get('/addslider',  [AddsliderContoller::class, 'addslider']);
 Route::get('/slider',  [AddsliderContoller::class, 'slider']);
@@ -35,4 +35,4 @@ Route::get('/cart',  [ClientController::class, 'cart']);
 Route::get('/checkout',  [ClientController::class, 'checkout']);
 Route::get('/signin',  [ClientController::class, 'signin']);
 Route::get('/signup',  [ClientController::class, 'signup']);
-Route::get('/order',  [ClientController::class, 'order']);
+Route::get('/orders',  [ClientController::class, 'order']);

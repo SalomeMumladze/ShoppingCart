@@ -1,7 +1,7 @@
 @extends('admin_layout.layout')
 @section('content')
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -15,22 +15,22 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Main content -->
+    
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <!-- left column -->
+          
           <div class="col-md-12">
-            <!-- jquery validation -->
+            
             <div class="card card-warning">
               <div class="card-header">
                 <h3 class="card-title">Add slider</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
+              
+              
               <form >
                 <div class="card-body">
                   <div class="form-group">
@@ -52,14 +52,14 @@
                     </div>
                   </div>
                 </div>
-                <!-- /.card-body -->
+                
                 <div class="card-footer">
                   <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
                   <input type="submit" class="btn btn-warning" value="Save" >
                 </div>
               </form>
             </div>
-            <!-- /.card --> 
+             
             </div>
           <!--/.col (left) -->
           <!-- right column -->
@@ -68,9 +68,9 @@
           </div>
           <!--/.col (right) -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+        
+      </div>
     </section>
-    <!-- /.content -->
+    
   </div>
 @endsection
