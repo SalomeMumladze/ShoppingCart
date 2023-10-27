@@ -21,8 +21,8 @@ class ClientController extends Controller
     }
     public function signin(){
         return view('client.signin');
-    }
-    public function signup(){
-        return view('client.signup');
+    } 
+    public function order(){
+        return view('admin.orders');
     }
 }
