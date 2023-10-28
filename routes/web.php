@@ -18,7 +18,7 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/admin',  [AdminController::class, 'admin']);
+Route::get('/dashboard',  [AdminController::class, 'dashboard']);
 
 Route::get('/products',  [ProductsController::class, 'products']);
 Route::get('/addproduct',  [ProductsController::class, 'addproduct']);
@@ -27,7 +27,7 @@ Route::get('/addcategory',  [CategoryController::class, 'addcategory']);
 Route::get('/categories',  [CategoryController::class, 'category']);
 
 Route::get('/addslider',  [AddsliderContoller::class, 'addslider']);
-Route::get('/slider',  [AddsliderContoller::class, 'slider']);
+Route::get('/sliders',  [AddsliderContoller::class, 'sliders']);
 
 Route::get('/',  [ClientController::class, 'home']);
 Route::get('/shop',  [ClientController::class, 'shop']);

@@ -1,5 +1,5 @@
 
-@extends('admin_layout.layout')
+@extends('admin_layout.tablelayout')
 @section('content')
 
   <div class="content-wrapper">
