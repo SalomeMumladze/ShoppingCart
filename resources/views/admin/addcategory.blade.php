@@ -30,12 +30,22 @@
               <div class="card-header">
                 <h3 class="card-title">Add category</small></h3>
               </div>
-              
-              
-              <form>
+              @if(Session::has('success'))
+              <div class="alert alert-success">
+                  {{Session::get('success')}}
+                  {{Session::put('success', null)}}
+              </div>
+              @endif
+
+              <form action="{{url('/savecategory')}}" method="GET" class="form-horizontal">
+              {{-- {!!Form::open(['Action'=>
+                'App\Http\Controller\CategoryController@savecategory', 'method'=>'GET'])!!} --}}
+                {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Category name</label>
+                    {{-- {{Form::label('','Category name', ['form'=>'exampleInputEmail1'] )}}
+                    {{Form::text('category_name','', ['class'=>'form-control','id'=>'exampleInputEmail1', 'placeholder'=> 'Enter category'])}} --}}
                     <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" placeholder="Enter category">
                   </div>
                 </div>
@@ -43,7 +53,9 @@
                 <div class="card-footer">
                   <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
                   <input type="submit" class="btn btn-primary" value="Save" >
+                  {{-- {{Form::submit('Save', ['class'=>'btn btn-primary'])}} --}}
                 </div>
+              {{-- {!!Form::close()!!} --}}
               </form>
             </div>
             

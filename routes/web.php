@@ -25,6 +25,7 @@ Route::get('/addproduct',  [ProductsController::class, 'addproduct']);
 
 Route::get('/addcategory',  [CategoryController::class, 'addcategory']);
 Route::get('/categories',  [CategoryController::class, 'category']);
+Route::get('/savecategory',  [CategoryController::class, 'savecategory']);
 
 Route::get('/addslider',  [AddsliderContoller::class, 'addslider']);
 Route::get('/sliders',  [AddsliderContoller::class, 'sliders']);
