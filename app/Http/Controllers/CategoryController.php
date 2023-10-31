@@ -14,24 +14,33 @@ class CategoryController extends Controller
         return view('admin.addcategory');
     }
     public function category(){
-        return view('admin.categories');
+        $categories = category::All();
+        return view('admin.categories')->with('categories',$categories);
     }
     public function savecategory(Request $request){
-        // $this->validate($request, ['category_name' => 'required|unique:categories']);
-
-        // $category = new category();
-        // $category->category_name = $request->input('category_name');
-        // $category->save();
-
-        // return back()->with('status', 'the category name has been successfully saved');
-       
         $data = array();
         $data['category_name'] = $request->category_name;
 
         DB::table('categories')->insert($data);
 
-        Session::put('success', 'this category has been added successfully');
         return redirect('/addcategory');
     
+    }
+    public function editcategory(Request $request, $id){
+        $category = category::find($id);
+        return view('admin.edit_category')->with('category', $category);
+    }
+    public function updatecategory(Request $request){
+        $category = category::find($request->input('id'));
+        $category->category_name = $request->input('category_name');
+        $category->update();
+
+        return redirect('/categories');
+    }
+    public function deletecategory(Request $request, $id){
+        $category = category::find($id);
+        $category->delete();
+
+        return redirect('/categories');
     }
 }

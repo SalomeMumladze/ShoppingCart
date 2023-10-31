@@ -26,14 +26,15 @@
           <div class="col-md-12">
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Add category</small></h3>
+                <h3 class="card-title">edit category</small></h3>
               </div>
-              <form action="{{url('/savecategory')}}" method="GET" class="form-horizontal">
+              <form action="{{url('/updatecategory')}}" method="GET" class="form-horizontal">
                 {{csrf_field()}}
                 <div class="card-body">
+                  <input type="hidden" name="id" value="{{ $category->id }}">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Category name</label>
-                    <input type="text" name="category_name" class="form-control" id="exampleInputEmail1" placeholder="Enter category">
+                    <input type="text" name='category_name' value={{$category->category_name}} class="form-control" id="exampleInputEmail1" placeholder="Enter category">
                   </div>
                 </div>
                 
@@ -42,7 +43,7 @@
                 </div>
               </form>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </section>
