@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('product_price');
             $table->string('product_category');
             $table->string('product_image');
+            $table->integer('status');
             $table->timestamps();
         });
     }

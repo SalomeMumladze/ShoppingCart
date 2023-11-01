@@ -22,7 +22,12 @@ Route::get('/dashboard',  [AdminController::class, 'dashboard']);
 
 Route::get('/products',  [ProductsController::class, 'products']);
 Route::get('/addproduct',  [ProductsController::class, 'addproduct']);
-Route::post('/saveproduct', 'ProductsController@saveproduct')->name('saveproduct');
+Route::get('/edit_product/{id}',  [ProductsController::class, 'edit_product']);
+Route::post('/saveproduct', 'App\Http\Controllers\ProductsController@saveproduct')->name('saveproduct');
+Route::get('/updateproduct',  [ProductsController::class, 'updateproduct']);
+Route::get('/deleteproduct/{id}',  [ProductsController::class, 'deleteproduct']);
+Route::get('/activate_product/{id}',  [ProductsController::class, 'activate_product']);
+Route::get('/Unactivate_product/{id}',  [ProductsController::class, 'Unactivate_product']);
 
 Route::get('/addcategory',  [CategoryController::class, 'addcategory']);
 Route::get('/categories',  [CategoryController::class, 'category']);
