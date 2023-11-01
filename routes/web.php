@@ -22,6 +22,7 @@ Route::get('/dashboard',  [AdminController::class, 'dashboard']);
 
 Route::get('/products',  [ProductsController::class, 'products']);
 Route::get('/addproduct',  [ProductsController::class, 'addproduct']);
+Route::post('/saveproduct', 'ProductsController@saveproduct')->name('saveproduct');
 
 Route::get('/addcategory',  [CategoryController::class, 'addcategory']);
 Route::get('/categories',  [CategoryController::class, 'category']);

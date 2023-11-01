@@ -1,6 +1,5 @@
 @extends('admin_layout.tablelayout')
 @section('content')
-{{$increment=1}}
  
   <div class="content-wrapper">
     
@@ -42,7 +41,7 @@
                 
                     @foreach ($categories as $category)
                     <tr>
-                      <td>{{$increment++}}</td>
+                      <td>{{$category->id}}</td>
                       <td>{{$category->category_name}}</td>
                       <td>
                         <a href={{url('/edit_category/'.$category->id)}} class="btn btn-primary"><i class="nav-icon fas fa-edit"></i></a>
