@@ -48,4 +48,32 @@ class AddsliderContoller extends Controller
         $slider->update();
         return redirect('/sliders');
     }
+    public function editslider($id){
+        $slider = Slider::find($id);
+        return view('admin.editslider')->with('slider', $slider);
+    }
+    public function updateslider(Request $request){
+        $slider  = new Slider();
+        $slider = Slider::find($request->input('id'));
+        $slider->slider_name = $request->input('slider_name');
+        $slider->slider_price = $request->input('slider_price');
+        $slider->slider_category = $request->input('slider_category'); 
+
+         // Check if a slider_image file was uploaded
+         if ($request->hasFile('slider_image')) {
+            $originalFileName = $request->file('slider_image')->getClientOriginalName();
+            $path = $request->file('slider_image')->storeAs('public/slider_images', $originalFileName);
+            $fileNameToStore = $originalFileName;
+            if($slider->slider_image !='noimage.jpg'){
+                Storage::delete('public/slider_images/'.$slider->slider_image);
+            }
+        }
+        $slider->update();
+        return redirect('/sliders');
+    }
+    public function deleteslider($id){
+        $slider = Slider::find($id);
+        $slider->delete();
+        return redirect('/sliders');
+    }
 }
