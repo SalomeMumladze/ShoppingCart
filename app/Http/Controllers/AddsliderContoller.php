@@ -53,21 +53,23 @@ class AddsliderContoller extends Controller
         return view('admin.editslider')->with('slider', $slider);
     }
     public function updateslider(Request $request){
-        $slider  = new Slider();
         $slider = Slider::find($request->input('id'));
-        $slider->slider_name = $request->input('slider_name');
-        $slider->slider_price = $request->input('slider_price');
-        $slider->slider_category = $request->input('slider_category'); 
+        $slider->description1 = $request->input('description1');
+        $slider->description2 = $request->input('description2');
 
-         // Check if a slider_image file was uploaded
-         if ($request->hasFile('slider_image')) {
+        // Check if a slider_image file was uploaded
+        if ($request->hasFile('slider_image')) {
             $originalFileName = $request->file('slider_image')->getClientOriginalName();
             $path = $request->file('slider_image')->storeAs('public/slider_images', $originalFileName);
-            $fileNameToStore = $originalFileName;
-            if($slider->slider_image !='noimage.jpg'){
-                Storage::delete('public/slider_images/'.$slider->slider_image);
+            
+            // Delete the old image if it's not the default 'noimage.jpg'
+            if ($slider->slider_image != 'noimage.jpg') {
+                Storage::delete('public/slider_images/' . $slider->slider_image);
             }
+            
+            $slider->slider_image = $originalFileName;
         }
+
         $slider->update();
         return redirect('/sliders');
     }

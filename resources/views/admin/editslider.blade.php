@@ -33,6 +33,7 @@
               <form action="{{ url('/updateslider') }}" method="POST" enctype="multipart/form-data" id="quickForm">
                 {{csrf_field()}}
                 <div class="card-body">
+                  <input type="text" hidden name="id" class="form-control" id="exampleInputEmail1" placeholder="Enter product name" value={{$slider->id}}>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Slider description 1</label>
                     <input type="text" name="description1" value={{$slider->description1}} class="form-control" id="exampleInputEmail1" placeholder="Enter slider description">
@@ -48,14 +49,14 @@
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">
-                      <span class="input-group-text">update</span>
+                      <span class="input-group-text">upload</span>
                     </div>
                   </div>
                 </div>
                 
                 <div class="card-footer">
                   <!-- <button type="submit" class="btn btn-warning">Submit</button> -->
-                  <input type="submit" class="btn btn-warning" value="Save" >
+                  <input type="submit" class="btn btn-warning" value="update" >
                 </div>
               </form>
             </div>

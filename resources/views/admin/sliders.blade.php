@@ -45,7 +45,7 @@
                   <tr>
                     <td>{{$slider->id}}</td>
                     <td>
-                      <img src="storage/slider_images/{{$slider->slider_image}}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
+                      <img src="/storage/slider_images/{{$slider->slider_image}}" style="height : 50px; width : 50px" class="img-circle elevation-2" alt="User Image">
                     </td>
                     <td>{{$slider->description1}}</td>
                     <td>{{$slider->description2}}</td>

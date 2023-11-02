@@ -28,9 +28,10 @@
               <div class="card-header">
                 <h3 class="card-title">Update product</h3>
               </div>
-              <form action="{{ url('/updateproduct') }}" method="GET" enctype="multipart/form-data" id="quickForm">
+              <form action="{{ url('/updateproduct') }}" method="POST" enctype="multipart/form-data" id="quickForm">
                 {{csrf_field()}}
                 <div class="card-body">
+                  <input type="text" hidden name="id" class="form-control" id="exampleInputEmail1" placeholder="Enter product name" value={{$product->id}}>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Product name</label>
                     <input type="text" name="product_name" class="form-control" id="exampleInputEmail1" placeholder="Enter product name" value={{$product->product_name}}>
