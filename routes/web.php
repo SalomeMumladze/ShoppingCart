@@ -38,6 +38,9 @@ Route::get('/delete_category/{id}',  [CategoryController::class, 'deletecategory
 
 Route::get('/addslider',  [AddsliderContoller::class, 'addslider']);
 Route::get('/sliders',  [AddsliderContoller::class, 'sliders']);
+Route::get('/activate_slider/{id}',  [AddsliderContoller::class, 'activate_slider']);
+Route::get('/Unactivate_slider/{id}',  [AddsliderContoller::class, 'Unactivate_slider']);
+Route::post('/saveslider', 'App\Http\Controllers\AddsliderContoller@saveslider')->name('saveslider');
 
 Route::get('/',  [ClientController::class, 'home']);
 Route::get('/shop',  [ClientController::class, 'shop']);

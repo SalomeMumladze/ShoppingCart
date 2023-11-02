@@ -30,8 +30,8 @@
                 <h3 class="card-title">Add slider</h3>
               </div>
               
-              
-              <form >
+              <form action="{{ url('/saveslider') }}" method="POST" enctype="multipart/form-data" id="quickForm">
+                {{csrf_field()}}
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputEmail1">Slider description 1</label>
@@ -44,7 +44,7 @@
                   <label for="exampleInputFile">Slider image</label>
                   <div class="input-group">
                     <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="exampleInputFile">
+                      <input type="file" name="slider_image" class="custom-file-input" id="exampleInputFile">
                       <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                     </div>
                     <div class="input-group-append">
