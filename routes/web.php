@@ -28,6 +28,7 @@ Route::post('/updateproduct', 'App\Http\Controllers\ProductsController@updatepro
 Route::get('/deleteproduct/{id}',  [ProductsController::class, 'deleteproduct']);
 Route::get('/activate_product/{id}',  [ProductsController::class, 'activate_product']);
 Route::get('/Unactivate_product/{id}',  [ProductsController::class, 'Unactivate_product']);
+Route::get('/view_product_by_category/{category_name}',  [ProductsController::class, 'view_product_by_category']);
 
 Route::get('/addcategory',  [CategoryController::class, 'addcategory']);
 Route::get('/categories',  [CategoryController::class, 'category']);
