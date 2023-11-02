@@ -18,9 +18,9 @@
     		<div class="row justify-content-center">
     			<div class="col-md-10 mb-5 text-center">
 					<ul class="product-category">
-							<li><a href="#" class="active">All</a></li>
+							<li><a href="{{url('/shop')}}" class="{{request()->is('shop')? 'active': ''}}">All</a></li>
 						@foreach ($categories as $category)
-							<li><a href="{{url('/view_product_by_category/'.$category->category_name)}}">{{$category->category_name}}</a></li>
+							<li><a  class="{{request()->is('view_product_by_category/'.$category->category_name) ? 'active': ''}}" href="{{url('/view_product_by_category/'.$category->category_name)}}">{{$category->category_name}}</a></li>
 						@endforeach
     				</ul>
     			</div>
