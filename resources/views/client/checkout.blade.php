@@ -16,7 +16,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-xl-7 ftco-animate">
-				<form action="#" class="billing-form">
+				<form action="{{url('/postcheckout')}}" method="POST" class="billing-form">
+					{{csrf_field()}}
 					<h3 class="mb-4 billing-heading">Billing Details</h3>
 					<div class="row align-items-end">
 						<div class="col-md-12">
@@ -31,7 +32,7 @@
 							<input type="text" class="form-control"  name="address">
 							</div>
 						</div>
-						<div class="col-md-12">
+						{{-- <div class="col-md-12">
 							<div class="form-group">
 								<label for="lastname">Name on Card</label>
 							<input type="text" class="form-control" id="card-name" name="card_name">
@@ -60,7 +61,7 @@
 								<label for="lastname">CVC</label>
 							<input type="text" id="card-cvc" class="form-control">
 							</div>
-						</div>
+						</div> --}}
 						<div class="col-md-12">
 							<div class="form-group">
 							<input type="submit" class="btn btn-primary" value="Buy Now">
@@ -76,7 +77,7 @@
 	          			<h3 class="billing-heading mb-4">Cart Total</h3>
 	          			<p class="d-flex">
 		    						<span>Subtotal</span>
-		    						<span>$20.60</span>
+		    						<span>${{Session::has('cart')? Session::get('cart')->totalPrice : 0}}</span>
 		    					</p>
 		    					<p class="d-flex">
 		    						<span>Delivery</span>
@@ -84,12 +85,12 @@
 		    					</p>
 		    					<p class="d-flex">
 		    						<span>Discount</span>
-		    						<span>$3.00</span>
+		    						<span>$0.00</span>
 		    					</p>
 		    					<hr>
 		    					<p class="d-flex total-price">
 		    						<span>Total</span>
-		    						<span>$17.60</span>
+		    						<span>${{Session::has('cart')? Session::get('cart')->totalPrice : 0}}</span>
 		    					</p>
 								</div>
 	          	</div>

@@ -41,22 +41,23 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
-                    <td>2020</td>
-                    <td>Win 95+</td>
-                    <td> 4</td>
-                    <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>2020</td>
-                    <td>Win 95+</td>
-                    <td>5</td>
-                    <td>
-                      <a href="#" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
-                    </td>
-                  </tr>
+                    @foreach ($orders as $order)
+                    <tr>
+                      <td>{{$order->created_at}}</td>
+                      <td>{{$order->name}}</td>
+                      <td>
+                        @if ($order->cart->items)
+                          @foreach ($order->cart->items as $item)
+                              {{$item['product_name'].','}}
+                          @endforeach
+                        @endif
+                      </td>
+                      <td>
+                        <a href="{{url('/viewpdffolder/'.$order->id)}}" class="btn btn-primary"><i class="nav-icon fas fa-eye"></i></a>
+                      </td>
+                    </tr>
+                    @endforeach
+                
                   </tbody>
                   <tfoot>
                   <tr>
@@ -68,17 +69,11 @@
                   </tfoot>
                 </table>
               </div>
-              
             </div>
-            
           </div>
-          
         </div>
-        
       </div>
-      
     </section>
-    
   </div>
  
 @endsection

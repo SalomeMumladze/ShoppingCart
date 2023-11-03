@@ -8,6 +8,7 @@ use App\Models\category;
 use App\Models\Product;
 use App\Models\Slider;
 use App\Models\Client;
+use App\Models\Order;
 use App\Cart;
 use DB;
 use Session;
@@ -48,10 +49,10 @@ class ClientController extends Controller
     }
 
     public function update_qty(Request $request, $id){
-        // return('the product id is '.$request->product_id.' And the product qty is '.$request->quantity);
+        // return('the product id is '.$request->id.' And the product qty is '.$request->quantity);
         $oldCart = Session::has('cart')? Session::get('cart'):null;
         $cart = new Cart($oldCart);
-        $cart->updateQty($request->product_id, $request->quantity);
+        $cart->updateQty($request->id, $request->quantity);
         Session::put('cart', $cart);
 
         // dd(Session::get('cart'));
@@ -77,7 +78,14 @@ class ClientController extends Controller
         if(!Session::has('client')){
             return view('client.signin');
         }
-        return view('client.checkout');
+
+        if(!Session::has('cart')){
+            return view('client.cart');
+        }
+
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+        return view('client.checkout',['products' => $cart->items]);
     }
     public function signin(){
         return view('client.signin');
@@ -96,8 +104,7 @@ class ClientController extends Controller
         return back();
     }     
     public function access_account(Request $request){
-        $this->validate($request,['email'=>'email|required',
-                                'password'=>'required']);
+        $this->validate($request,['email'=>'email|required','password'=>'required']);
         $client = Client::where('email', $request->input('email'))->first();
 
         if($client){
@@ -117,6 +124,24 @@ class ClientController extends Controller
         return redirect('/shop');
     }
     public function order(){
-        return view('admin.orders');
+        $orders = Order::All();
+        $orders->transform(function($order, $key){
+            $order->cart = unserialize($order->cart);
+            return $order;
+        });
+        return view('admin.orders')->with('orders', $orders);
+    }
+    public function postcheckout(Request $request){
+        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $cart = new Cart($oldCart);
+
+        $order=new Order();
+        $order->name=$request->input('name');
+        $order->address=$request->input('address');
+        $order->cart = serialize($cart);
+
+        $order->save();
+        Session::forget('cart');
+        return redirect('/cart');
     }
 }
