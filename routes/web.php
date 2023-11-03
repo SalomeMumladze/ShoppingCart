@@ -48,8 +48,12 @@ Route::post('/updateslider', 'App\Http\Controllers\AddsliderContoller@updateslid
 
 Route::get('/',  [ClientController::class, 'home']);
 Route::get('/shop',  [ClientController::class, 'shop']);
+Route::get('/addtocart/{id}',  [ClientController::class, 'addtocart']);
 Route::get('/cart',  [ClientController::class, 'cart']);
 Route::get('/checkout',  [ClientController::class, 'checkout']);
 Route::get('/signin',  [ClientController::class, 'signin']);
 Route::get('/signup',  [ClientController::class, 'signup']);
+Route::get('/create_account',  [ClientController::class, 'create_account']);
+Route::post('/access_account',  'App\Http\Controllers\ClientController@access_account')->name('access_account');
 Route::get('/orders',  [ClientController::class, 'order']);
+Route::get('/logout',  [ClientController::class, 'logout']);

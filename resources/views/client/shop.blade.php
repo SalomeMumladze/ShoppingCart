@@ -2,7 +2,7 @@
 @extends('client_layout.client')
 @section('content')
 	
-    <div class="hero-wrap hero-bread" style="background-image: url('client/images/bg_1.jpg');">
+    <div class="hero-wrap hero-bread" style="background-image: url('{{asset('client/images/bg_1.jpg')}}')">
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center">
           <div class="col-md-9 ftco-animate text-center">
@@ -30,14 +30,14 @@
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
 							<a href="#" class="img-prod"><img class="img-fluid" src="/storage/product_images/{{$product->product_image}}" alt="Colorlib Template">
-								{{-- <span class="status">30%</span> --}}
+								<span class="status">30%</span>
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center">
 								<h3><a href="#">{{$product->product_name}}</a></h3>
 								<div class="d-flex">
 									<div class="pricing">
-										<span class="price-sale">{{$product->product_price}}</span></p>
+										<span class="price-sale">${{$product->product_price}}</span></p>
 									</div>
 								</div>
 								<div class="bottom-area d-flex px-3">
@@ -45,7 +45,7 @@
 										<a href="#" class="add-to-cart d-flex justify-content-center align-items-center text-center">
 											<span><i class="ion-ios-menu"></i></span>
 										</a>
-										<a href="#" class="buy-now d-flex justify-content-center align-items-center mx-1">
+										<a href="{{url('/addtocart/'.$product->id)}}" class="buy-now d-flex justify-content-center align-items-center mx-1">
 											<span><i class="ion-ios-cart"></i></span>
 										</a>
 										<a href="#" class="heart d-flex justify-content-center align-items-center ">
