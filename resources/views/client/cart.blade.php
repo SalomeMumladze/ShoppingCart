@@ -32,7 +32,7 @@
 								@if(Session::has('cart'))
 									@foreach($products as $product)
 									<tr class="text-center">
-										<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
+										<td class="product-remove"><a href="{{url('/removeItem'.$product['product_id'])}}" ><span class="ion-ios-close"></span></a></td>
 										
 										<td class="image-prod"><div class="img" style="background-image:url(/storage/product_images/{{$product['product_image']}});"></div></td>
 										
@@ -41,11 +41,15 @@
 										</td>
 										
 										<td class="price">{{$product['product_price']}}</td>
-										<form action="">
+										<form action="{{url('/update_qty/'.$product['product_id'])}}">
+											{{csrf_field()}}
 											<td class="quantity">
 												<div class="input-group mb-3">
-												<input type="number" name="quantity" class="quantity form-control input-number" value="{{$product['qty']}}" min="1" max="100">
-											</div>
+													<input type="number" name="quantity" class="quantity form-control input-number" value="{{$product['qty']}}" min="1" max="100">
+												</div>
+												<input type='submit' class="btn btn-success" value="Validate"/>
+											</td>
+											
 										</form>
 									</td>
 									</td>
@@ -99,7 +103,7 @@
     					<h3>Cart Totals</h3>
     					<p class="d-flex">
     						<span>Subtotal</span>
-    						<span>$20.60</span>
+    						<span>${{Session::has('cart')? Session::get('cart')->totalPrice : 0}}</span>
     					</p>
     					<p class="d-flex">
     						<span>Delivery</span>
@@ -107,12 +111,12 @@
     					</p>
     					<p class="d-flex">
     						<span>Discount</span>
-    						<span>$3.00</span>
+    						<span>$0.00</span>
     					</p>
     					<hr>
     					<p class="d-flex total-price">
     						<span>Total</span>
-    						<span>${{Session::get('cart')->totalPrice}}</span>
+    						<span>${{Session::has('cart')? Session::get('cart')->totalPrice : 0}}</span>
     					</p>
     				</div>
     				<p><a href="{{url('/checkout')}}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>

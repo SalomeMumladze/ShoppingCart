@@ -50,6 +50,8 @@ Route::get('/',  [ClientController::class, 'home']);
 Route::get('/shop',  [ClientController::class, 'shop']);
 Route::get('/addtocart/{id}',  [ClientController::class, 'addtocart']);
 Route::get('/cart',  [ClientController::class, 'cart']);
+Route::get('/removeItem/{product_id}',  [ClientController::class, 'removeItem']);
+Route::get('/update_qty/{id}',  [ClientController::class, 'update_qty']);
 Route::get('/checkout',  [ClientController::class, 'checkout']);
 Route::get('/signin',  [ClientController::class, 'signin']);
 Route::get('/signup',  [ClientController::class, 'signup']);
