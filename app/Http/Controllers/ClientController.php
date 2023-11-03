@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Models\category;
 use App\Models\Product;
@@ -9,7 +10,6 @@ use App\Models\Slider;
 use App\Models\Client;
 use App\Cart;
 use DB;
-use Illuminate\Support\Facades\Hash;
 use Session;
 
 
@@ -26,17 +26,15 @@ class ClientController extends Controller
         return view('client.shop')->with('products', $products)->with('categories', $categories);
     }
     public function addToCart($id){
-        $product = DB::table('tbl_products')
-                    ->where('id', $id)
-                    ->first();
+        $product = Product::find($id);
 
-        $oldCart = Session::has('cart')? Session::get('cart'):null;
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
         $cart = new Cart($oldCart);
         $cart->add($product, $id);
         Session::put('cart', $cart);
 
-        dd(Session::get('cart'));
-        // return redirect('/shop');
+        // dd(Session::get('cart'));
+        return redirect('/shop');
     }
 
     public function cart(){

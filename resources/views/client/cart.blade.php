@@ -30,7 +30,7 @@
 						    </thead>
 						    <tbody>
 								@if(Session::has('cart'))
-									{{-- @foreach($products as $product)
+									@foreach($products as $product)
 									<tr class="text-center">
 										<td class="product-remove"><a href="#"><span class="ion-ios-close"></span></a></td>
 										
@@ -50,8 +50,9 @@
 									</td>
 									</td>
 									<td class="total">${{$product['qty']*$product['product_price']}}</td>
-									</tr><!-- END TR-->
-									@endforeach --}}
+									</tr>
+									<!-- END TR-->
+									@endforeach
 								@endif
 						    </tbody>
 						  </table>

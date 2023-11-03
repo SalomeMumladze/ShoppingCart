@@ -2,61 +2,60 @@
 
 namespace App;
 
-class Cart {
-    public $items;       // An array to store cart items.
-    public $totalQty;    // Total quantity of items in the cart.
-    public $totalPrice;  // Total price of all items in the cart.
+    class Cart{
 
-    public function __construct($oldCart) {
-        // Constructor to initialize the cart with the data from the old cart.
-        if ($oldCart) {
-            $this->items = $oldCart->items;
-            $this->totalQty = $oldCart->totalQty;
-            $this->totalPrice = $oldCart->totalPrice;
-        } else {
-            $this->items = [];
-            $this->totalQty = 0;
-            $this->totalPrice = 0;
+        public $items = null;
+        public $totalQty = 0;
+        public $totalPrice = 0;
+
+
+        public function __construct($oldCart){
+            
+            if($oldCart){
+                $this->items = $oldCart->items;
+                $this->totalQty = $oldCart->totalQty;
+                $this->totalPrice = $oldCart->totalPrice;
+            }
+
         }
-    }
 
-    public function add($item, $product_id) {
-        // Add an item to the cart.
-        $storedItem = [
-            'qty' => 0,
-            'product_id' => $product_id,
-            'product_name' => $item->product_name,
-            'product_price' => $item->product_price,
-            'product_image' => $item->product_image,
-            'item' => $item
-        ];
+        public function add($item, $product_id){
 
-        // Check if the product is already in the cart.
-        if (array_key_exists($product_id, $this->items)) {
-            $storedItem = $this->items[$product_id];
+            $storedItem = ['qty' => 0, 'product_id' => 0, 'product_name' => $item->product_name,
+        'product_price' => $item->product_price, 'product_image' => $item->product_image, 'item' =>$item];
+
+        if($this->items){
+            if(array_key_exists($product_id, $this->items)){
+                $storedItem = $this->items[$product_id];
+            }
         }
 
         $storedItem['qty']++;
+        $storedItem['product_id'] = $product_id;
+        $storedItem['product_name'] = $item->product_name;
+        $storedItem['product_price'] = $item->product_price;
+        $storedItem['product_image'] = $item->product_image;
         $this->totalQty++;
         $this->totalPrice += $item->product_price;
         $this->items[$product_id] = $storedItem;
-    }
 
-    public function updateQty($id, $qty) {
-        // Update the quantity of a specific item in the cart.
-        $this->totalQty -= $this->items[$id]['qty'];
-        $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
-        $this->items[$id]['qty'] = $qty;
-        $this->totalQty += $qty;
-        $this->totalPrice += $this->items[$id]['product_price'] * $qty;
-    }
+        }
 
-    public function removeItem($id) {
-        // Remove an item from the cart.
-        $this->totalQty -= $this->items[$id]['qty'];
-        $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
-        unset($this->items[$id]);
-    }
-}
+        public function updateQty($id, $qty){
+            $this->totalQty -= $this->items[$id]['qty'];
+            $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
+            $this->items[$id]['qty'] = $qty;
+            $this->totalQty += $qty;
+            $this->totalPrice += $this->items[$id]['product_price'] * $qty;
 
+        }
+
+        public function removeItem($id){
+            $this->totalQty -= $this->items[$id]['qty'];
+            $this->totalPrice -= $this->items[$id]['product_price'] * $this->items[$id]['qty'];
+            unset($this->items[$id]);
+        }
+
+
+    }
 ?>
