@@ -33,7 +33,7 @@ class AddsliderContoller extends Controller
         }
         $data['slider_image'] = $fileNameToStore;
         DB::table('sliders')->insert($data);
-
+        Session::put('success', 'Slider has been added successfully');
         return redirect('/sliders');
     }
     public function activate_slider(Request $request, $id){
@@ -71,11 +71,14 @@ class AddsliderContoller extends Controller
         }
 
         $slider->update();
+        Session::put('success', 'Slider has been updated successfully');
         return redirect('/sliders');
     }
     public function deleteslider($id){
         $slider = Slider::find($id);
         $slider->delete();
+
+        Session::put('success', 'Slider has been deleted successfully');
         return redirect('/sliders');
     }
 }

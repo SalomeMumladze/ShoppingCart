@@ -22,8 +22,8 @@ class CategoryController extends Controller
         $data['category_name'] = $request->category_name;
 
         DB::table('categories')->insert($data);
-
-        return redirect('/addcategory');
+        Session::put('success', 'Category has been added successfully');
+        return redirect('/categories');
     
     }
     public function editcategory(Request $request, $id){
@@ -35,12 +35,14 @@ class CategoryController extends Controller
         $category->category_name = $request->input('category_name');
         $category->update();
 
+        Session::put('success', 'Category has been updated successfully');
         return redirect('/categories');
     }
     public function deletecategory(Request $request, $id){
         $category = category::find($id);
         $category->delete();
 
+        Session::put('success', 'Category has been deleted successfully');
         return redirect('/categories');
     }
 }

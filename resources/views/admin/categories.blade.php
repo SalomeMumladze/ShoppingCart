@@ -1,8 +1,8 @@
 @extends('admin_layout.tablelayout')
 @section('content')
- 
+
   <div class="content-wrapper">
-    
+
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -17,6 +17,12 @@
           </div>
         </div>
       </div>
+        @if(Session::has('success'))
+          <div class="alert alert-success">
+            {{Session::get('success')}}
+            {{Session::put('success', null)}}
+          </div>
+        @endif
     </section>
 
     <section class="content">

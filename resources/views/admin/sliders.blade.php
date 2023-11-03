@@ -17,6 +17,12 @@
         </div>
       </div>
     </div>
+    @if(Session::has('success'))
+      <div class="alert alert-success">
+        {{Session::get('success')}}
+        {{Session::put('success', null)}}
+      </div>
+    @endif
   </section>
 
   

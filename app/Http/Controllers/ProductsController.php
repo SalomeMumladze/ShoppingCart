@@ -37,6 +37,8 @@ class ProductsController extends Controller
         }
         $data['product_image'] = $fileNameToStore;
         DB::table('products')->insert($data);
+
+        Session::put('success', 'Product has been added successfully');
         return redirect('/addproduct');
     }
     public function edit_product($id){
@@ -63,12 +65,15 @@ class ProductsController extends Controller
             $product->product_image = $originalFileName;
         }
         $product->update();
+        Session::put('success', 'Product has been updated successfully');
         return redirect('/products');
     }
     
     public function deleteproduct(Request $request, $id){
         $product= Product::find($id);
         $product->delete();
+
+        Session::put('success', 'Product has been deleted successfully');
        return redirect('/products');
     }
     public function activate_product(Request $request, $id){
