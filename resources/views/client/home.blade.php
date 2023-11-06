@@ -150,7 +150,7 @@
 					<div class="d-flex">
 					<div class="pricing">
 						<p class="price">
-						<span class="price-sale">{{$product->product_price}}</span>
+						<span class="price-sale">${{$product->product_price}}</span>
 						</p>
 					</div>
 					</div>

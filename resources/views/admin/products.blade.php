@@ -55,7 +55,7 @@
                       </td>
                       <td>{{$product->product_name}}</td>
                       <td>{{$product->product_category}}</td>
-                      <td>{{$product->product_price}}</td>
+                      <td>${{$product->product_price}}</td>
                       <td>
                         @if($product->status==1)
                         <a href={{url('/Unactivate_product/'.$product->id)}} class="btn btn-success">Unactivate</a>

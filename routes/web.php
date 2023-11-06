@@ -60,6 +60,7 @@ Route::get('/create_account',  [ClientController::class, 'create_account']);
 Route::post('/access_account',  'App\Http\Controllers\ClientController@access_account')->name('access_account');
 Route::get('/orders',  [ClientController::class, 'order']);
 Route::get('/logout',  [ClientController::class, 'logout']);
+Route::get('/paiement_success',  [ClientController::class, 'paiement_success']);
 Route::post('/postcheckout',  'App\Http\Controllers\ClientController@postcheckout')->name('postcheckout');
 
 Route::get('/viewpdffolder/{id}',  [PdfController::class, 'view_pdf']);

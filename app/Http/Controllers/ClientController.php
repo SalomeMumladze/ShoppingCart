@@ -14,6 +14,7 @@ use App\Mail\SendMail;
 use App\Cart;
 use DB;
 use Session;
+use Srmklive\PayPal\Services\ExpressCheckout;
 
 
 class ClientController extends Controller
@@ -37,7 +38,7 @@ class ClientController extends Controller
         Session::put('cart', $cart);
 
         // dd(Session::get('cart'));
-        return redirect('/shop');
+       return redirect('/shop');
     }
 
     public function cart(){
@@ -123,7 +124,7 @@ class ClientController extends Controller
     } 
     public function logout(){
         Session::forget('client');
-        return redirect('/shop');
+       return redirect('/shop');
     }
     public function order(){
         $orders = Order::All();
@@ -133,31 +134,94 @@ class ClientController extends Controller
         });
         return view('admin.orders')->with('orders', $orders);
     }
+
     public function postcheckout(Request $request){
+        try{
+            $oldCart = Session::has('cart')? Session::get('cart'):null;
+            $cart = new Cart($oldCart);
+
+            $payer_id = time();
+
+            $order=new Order();
+            $order->name=$request->input('name');
+            $order->address=$request->input('address');
+            $order->cart = serialize($cart);
+            $order->payer_id= $payer_id;
+
+            Session::put('order', $order);
+
+            $checkoutData = $this->checkoutData();
+            $provider = new ExpressCheckout();
+            $response = $provider->setExpressCheckout($checkoutData);
+            return redirect($response['paypal_link']);
+
+        }
+        catch(\Exeption $e){
+            return redirect('\checkout')->with('error', $e->getMessage());
+        }
+    }
+
+    public function checkoutData(){
+
         $oldCart = Session::has('cart')? Session::get('cart'):null;
-        $cart = new Cart($oldCart);
+        $cart =new Cart($oldCart);
 
-        $payer_id = time();
+        $data['items'] = [];
 
-        $order=new Order();
-        $order->name=$request->input('name');
-        $order->address=$request->input('address');
-        $order->cart = serialize($cart);
-        $order->payer_id= $payer_id;
+        foreach($cart->items as $item){
+            $itemDetails = [
+                'name'=>$item['product_name'],
+                'price'=>$item['product_price'],
+                'qty'=>$item['qty']
+            ];
 
-        $order->save();
-        
-        Session::forget('cart');
+            $data['items'][] = $itemDetails;
+        }
 
-        $orders = Order::where('payer_id', $payer_id)->get();
-        $orders->transform(function($order, $key){
-            $order->cart = unserialize($order->cart);
-            return $order;
-        });
+        $checkoutData=[
+            'items' => $data['items'],
+            'return_url' => url('/paiement_success'),
+            'cancel_url' => url('/checkout'),
+            'invoice_id' => uniqid(),
+            'invoice_description' => "order description",
+            'total' => Session::get('cart')->totalPrice
+        ];
 
-        $email = Session::get('client')->email;
-        Mail::to($email)->send(new SendMail($orders));
+        return $checkoutData;
+    }
 
-        return redirect('/cart');
+    public function paiement_success(Request $request){
+
+        try{
+            $token = $request->get('token');
+            $payerId = $request->get('PayerID');
+            $checkoutData = $this->checkoutData();
+
+
+            $provider = new ExpressCheckout();
+            $response = $provider->getExpressCheckoutDetails($token);
+            $response = $provider->doExpressCheckoutPayment($checkoutData, $token, $payerId);
+            
+            $payer_id = $payerId.'_'.time();
+            Session::get('order')->payer_id = $payer_id;
+            Session::get('order')->save();
+
+       
+            $orders = Order::where('payer_id', $payer_id)->get();
+            $orders->transform(function($order, $key){
+                $order->cart = unserialize($order->cart);
+                return $order;
+            });
+
+            $email = Session::get('client')->email;
+            Mail::to($email)->send(new SendMail($orders));
+            Session::forget('cart');
+            return redirect('/cart');
+
+        }
+        catch(\Exception $e){
+            return redirect('/checkout')->with('error', $e->getMessage());
+        }
+
     }
 }

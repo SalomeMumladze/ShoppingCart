@@ -30,7 +30,7 @@
 					<div class="col-md-6 col-lg-3 ftco-animate">
 						<div class="product">
 							<a href="#" class="img-prod"><img class="img-fluid" src="/storage/product_images/{{$product->product_image}}" alt="Colorlib Template">
-								<span class="status">30%</span>
+								{{-- <span class="status">30%</span> --}}
 								<div class="overlay"></div>
 							</a>
 							<div class="text py-3 pb-4 px-3 text-center">
