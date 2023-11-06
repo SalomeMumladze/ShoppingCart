@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('address');
-            $table->string('cart');
+            $table->string('payer_id');
+            $table->text('cart');
             $table->timestamps();
         });
     }
