@@ -28,9 +28,8 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
-
-                <p>New Orders</p>
+                <h3>{{count($orders)}}</h3>
+                <p>Orders</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -58,8 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44</h3>
-
+                <h3>{{count($clients)}}</h3>
                 <p>User Registrations</p>
               </div>
               <div class="icon">
